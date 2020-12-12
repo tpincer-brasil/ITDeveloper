@@ -1,23 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Cooperchip.ITDeveloper.Data.Migrations
 {
-    public partial class AddMappingsEstadoPacienteEPacienteMapApplyAll : Migration
+    public partial class AddMappingsEstadoPacientePacienteMap : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_MovimentoPaciente_Paciente_PacienteId",
-                table: "MovimentoPaciente");
-
-            migrationBuilder.DropForeignKey(
                 name: "FK_Paciente_EstadoPaciente_EstadoPacienteId",
                 table: "Paciente");
+
+            migrationBuilder.DropTable(
+                name: "MovimentoPaciente");
 
             migrationBuilder.AlterColumn<string>(
                 name: "RgOrgao",
                 table: "Paciente",
-                type: "varchar(100)",
+                type: "varchar(10)",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldNullable: true);
@@ -25,7 +25,7 @@ namespace Cooperchip.ITDeveloper.Data.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Rg",
                 table: "Paciente",
-                type: "varchar(100)",
+                type: "varchar(15)",
                 maxLength: 15,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -34,7 +34,7 @@ namespace Cooperchip.ITDeveloper.Data.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Nome",
                 table: "Paciente",
-                type: "varchar(100)",
+                type: "varchar(80)",
                 nullable: false,
                 oldClrType: typeof(string),
                 oldNullable: true);
@@ -42,7 +42,7 @@ namespace Cooperchip.ITDeveloper.Data.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Email",
                 table: "Paciente",
-                type: "varchar(100)",
+                type: "varchar(150)",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldNullable: true);
@@ -50,7 +50,7 @@ namespace Cooperchip.ITDeveloper.Data.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Cpf",
                 table: "Paciente",
-                type: "varchar(100)",
+                type: "varchar(11)",
                 fixedLength: true,
                 maxLength: 11,
                 nullable: true,
@@ -90,29 +90,13 @@ namespace Cooperchip.ITDeveloper.Data.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "Observacao",
-                table: "MovimentoPaciente",
-                type: "varchar(100)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
                 name: "Descricao",
                 table: "EstadoPaciente",
-                type: "varchar(100)",
+                type: "varchar(30)",
                 maxLength: 20,
                 nullable: false,
                 oldClrType: typeof(string),
                 oldMaxLength: 20);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_MovimentoPaciente_Paciente_PacienteId",
-                table: "MovimentoPaciente",
-                column: "PacienteId",
-                principalTable: "Paciente",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Paciente_EstadoPaciente_EstadoPacienteId",
@@ -126,10 +110,6 @@ namespace Cooperchip.ITDeveloper.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_MovimentoPaciente_Paciente_PacienteId",
-                table: "MovimentoPaciente");
-
-            migrationBuilder.DropForeignKey(
                 name: "FK_Paciente_EstadoPaciente_EstadoPacienteId",
                 table: "Paciente");
 
@@ -138,7 +118,7 @@ namespace Cooperchip.ITDeveloper.Data.Migrations
                 table: "Paciente",
                 nullable: true,
                 oldClrType: typeof(string),
-                oldType: "varchar(100)",
+                oldType: "varchar(10)",
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
@@ -146,7 +126,7 @@ namespace Cooperchip.ITDeveloper.Data.Migrations
                 table: "Paciente",
                 nullable: true,
                 oldClrType: typeof(string),
-                oldType: "varchar(100)",
+                oldType: "varchar(15)",
                 oldMaxLength: 15,
                 oldNullable: true);
 
@@ -155,14 +135,14 @@ namespace Cooperchip.ITDeveloper.Data.Migrations
                 table: "Paciente",
                 nullable: true,
                 oldClrType: typeof(string),
-                oldType: "varchar(100)");
+                oldType: "varchar(80)");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Email",
                 table: "Paciente",
                 nullable: true,
                 oldClrType: typeof(string),
-                oldType: "varchar(100)",
+                oldType: "varchar(150)",
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
@@ -170,7 +150,7 @@ namespace Cooperchip.ITDeveloper.Data.Migrations
                 table: "Paciente",
                 nullable: true,
                 oldClrType: typeof(string),
-                oldType: "varchar(100)",
+                oldType: "varchar(11)",
                 oldFixedLength: true,
                 oldMaxLength: 11,
                 oldNullable: true);
@@ -208,29 +188,41 @@ namespace Cooperchip.ITDeveloper.Data.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "Observacao",
-                table: "MovimentoPaciente",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "varchar(100)",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
                 name: "Descricao",
                 table: "EstadoPaciente",
                 maxLength: 20,
                 nullable: false,
                 oldClrType: typeof(string),
-                oldType: "varchar(100)",
+                oldType: "varchar(30)",
                 oldMaxLength: 20);
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_MovimentoPaciente_Paciente_PacienteId",
+            migrationBuilder.CreateTable(
+                name: "MovimentoPaciente",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    DataMovimento = table.Column<DateTime>(nullable: false),
+                    Observacao = table.Column<string>(nullable: true),
+                    PacienteId = table.Column<Guid>(nullable: false),
+                    TipoEntradaPaciente = table.Column<int>(nullable: false),
+                    TipoMovimentoPaciente = table.Column<int>(nullable: false),
+                    TipoSaidaPaciente = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MovimentoPaciente", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MovimentoPaciente_Paciente_PacienteId",
+                        column: x => x.PacienteId,
+                        principalTable: "Paciente",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MovimentoPaciente_PacienteId",
                 table: "MovimentoPaciente",
-                column: "PacienteId",
-                principalTable: "Paciente",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                column: "PacienteId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Paciente_EstadoPaciente_EstadoPacienteId",

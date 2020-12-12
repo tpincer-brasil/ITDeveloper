@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cooperchip.ITDeveloper.Mvc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191106044456_AddInitialMigrationForIntity")]
+    [Migration("20201212132349_AddInitialMigrationForIntity")]
     partial class AddInitialMigrationForIntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

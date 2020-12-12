@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cooperchip.ITDeveloper.Data.Migrations
 {
     [DbContext(typeof(ITDeveloperDbContext))]
-    [Migration("20191105133514_AddMappingsEstadoPacienteEPacienteMap")]
-    partial class AddMappingsEstadoPacienteEPacienteMap
+    [Migration("20201212125134_AddMappingsEstadoPacientePacienteMap")]
+    partial class AddMappingsEstadoPacientePacienteMap
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,15 +27,19 @@ namespace Cooperchip.ITDeveloper.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Autor");
+                    b.Property<string>("Autor")
+                        .HasColumnType("varchar(100)");
 
-                    b.Property<string>("Aviso");
+                    b.Property<string>("Aviso")
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("Data");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .HasColumnType("varchar(100)");
 
-                    b.Property<string>("Titulo");
+                    b.Property<string>("Titulo")
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("MuralId");
 
@@ -49,35 +53,13 @@ namespace Cooperchip.ITDeveloper.Data.Migrations
 
                     b.Property<string>("Descricao")
                         .IsRequired()
+                        .HasColumnName("Descricao")
+                        .HasColumnType("varchar(30)")
                         .HasMaxLength(20);
 
                     b.HasKey("Id");
 
                     b.ToTable("EstadoPaciente");
-                });
-
-            modelBuilder.Entity("Cooperchip.ITDeveloper.Domain.Models.MovimentoPaciente", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("DataMovimento");
-
-                    b.Property<string>("Observacao");
-
-                    b.Property<Guid>("PacienteId");
-
-                    b.Property<int>("TipoEntradaPaciente");
-
-                    b.Property<int>("TipoMovimentoPaciente");
-
-                    b.Property<int>("TipoSaidaPaciente");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PacienteId");
-
-                    b.ToTable("MovimentoPaciente");
                 });
 
             modelBuilder.Entity("Cooperchip.ITDeveloper.Domain.Models.Paciente", b =>
@@ -87,23 +69,37 @@ namespace Cooperchip.ITDeveloper.Data.Migrations
 
                     b.Property<bool>("Ativo");
 
-                    b.Property<string>("Cpf");
+                    b.Property<string>("Cpf")
+                        .HasColumnName("Cpf")
+                        .HasColumnType("varchar(11)")
+                        .IsFixedLength(true)
+                        .HasMaxLength(11);
 
                     b.Property<DateTime>("DataInternacao");
 
                     b.Property<DateTime>("DataNascimento");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .HasColumnName("Email")
+                        .HasColumnType("varchar(150)");
 
                     b.Property<Guid>("EstadoPacienteId");
 
-                    b.Property<string>("Nome");
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnName("Nome")
+                        .HasColumnType("varchar(80)");
 
-                    b.Property<string>("Rg");
+                    b.Property<string>("Rg")
+                        .HasColumnName("Rg")
+                        .HasColumnType("varchar(15)")
+                        .HasMaxLength(15);
 
                     b.Property<DateTime>("RgDataEmissao");
 
-                    b.Property<string>("RgOrgao");
+                    b.Property<string>("RgOrgao")
+                        .HasColumnName("RgOrgao")
+                        .HasColumnType("varchar(10)");
 
                     b.Property<int>("Sexo");
 
@@ -116,20 +112,11 @@ namespace Cooperchip.ITDeveloper.Data.Migrations
                     b.ToTable("Paciente");
                 });
 
-            modelBuilder.Entity("Cooperchip.ITDeveloper.Domain.Models.MovimentoPaciente", b =>
-                {
-                    b.HasOne("Cooperchip.ITDeveloper.Domain.Models.Paciente", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Cooperchip.ITDeveloper.Domain.Models.Paciente", b =>
                 {
                     b.HasOne("Cooperchip.ITDeveloper.Domain.Models.EstadoPaciente", "EstadoPaciente")
                         .WithMany("Paciente")
-                        .HasForeignKey("EstadoPacienteId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("EstadoPacienteId");
                 });
 #pragma warning restore 612, 618
         }
