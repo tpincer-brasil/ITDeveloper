@@ -6,7 +6,7 @@ namespace Cooperchip.ITDeveloper.Mvc.Extentions.TagHelpers
 {
     public class EmailTagHelper : TagHelper
     {
-        public string Dominio { get; set; } = "www.github.com/tpincer";
+        public string Dominio { get; set; } = "eaditdeveloper.com.br";
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "a";

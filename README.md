@@ -224,6 +224,13 @@ namespace Cooperchip.ITDeveloper.Mvc.Extentions.TagHelpers
 }
 ```
 
+## Migrando nossa aplicação do Asp.Net Core 2.2 para 3.0 / 3.1.
+
+
+>> Se você for um iniciante em Asp.Net Core talvez nunca tenha ouvido falar de AddMvcCore().
+
+
+
 
 Consultar a documentação para TagHelpers e ViewComponents, **[Leia aqui](https://docs.microsoft.com/pt-br/)**.
 Consultar a documentação para MarkDown, **[Leia aqui](http://daringfireball.net/projects/markdown/basics)**.

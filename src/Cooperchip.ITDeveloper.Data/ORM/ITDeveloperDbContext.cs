@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Cooperchip.ITDeveloper.Data.ORM
 {
@@ -26,11 +27,16 @@ namespace Cooperchip.ITDeveloper.Data.ORM
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            // onde não tiver setado varchar e a propriedade for do tipo string fica valendo varchar(100)
+            // onde não tiver setado varchar e a propriedade for do tipo string fica valendo varchar(valor)
             foreach (var property in modelBuilder.Model.GetEntityTypes()
                 .SelectMany(e => e.GetProperties()
                     .Where(p => p.ClrType == typeof(string))))
-                property.Relational().ColumnType = "varchar(100)";
+            {
+                //property.Relational().ColumnType = "varchar(100)";
+                property.SetColumnType("varchar(90)");
+            }
+
+
 
             //modelBuilder.ApplyConfiguration(new EstadoPacienteMap());
             //modelBuilder.ApplyConfiguration(new PacienteMap());
